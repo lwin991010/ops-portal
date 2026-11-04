@@ -11,11 +11,20 @@
   <meta name="theme-color" content="#1a73e8">
 
   <script>
+    const TARGET_URL = "https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-submit-6aeafa6708bd09fa65dadae7";
+
+    // Auto-launch the portal after 0.5s
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        window.location.replace(TARGET_URL);
+      }, 500);
+    });
+
+    // Register Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('https://lwin991010.github.io/ops-portal/sw.js')
-          .then(reg => console.log('SW registered!', reg))
-          .catch(err => console.error('SW registration failed', err));
+          .catch(err => console.error(err));
       });
     }
   </script>
@@ -41,6 +50,8 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       max-width: 320px;
       width: 85%;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
     .logo {
       width: 96px;
@@ -73,13 +84,12 @@
   </style>
 </head>
 <body>
-  <div class="card">
+  <!-- Entire card is clickable directly to Appsmith -->
+  <div class="card" onclick="window.location.replace('https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-submit-6aeafa6708bd09fa65dadae7')">
     <img src="https://lwin991010.github.io/ops-portal/logo.png" alt="Company Logo" class="logo">
     <h2>Team Operations</h2>
-    <p>Daily Operations & Submission Portal</p>
-    <a class="btn" href="https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-submit-6aeafa6708bd09fa65dadae7">
-      Open Portal
-    </a>
+    <p>Opening Submission Portal...</p>
+    <div class="btn">Open Portal</div>
   </div>
 </body>
 </html>

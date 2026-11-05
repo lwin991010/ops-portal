@@ -18,9 +18,7 @@
       });
     }
 
-    function openPortal() {
-      const url = "https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-submit-6aeafa6708bd09fa65dadae7";
-      // Force navigation to external domain
+    function openLink(url) {
       window.open(url, '_blank');
       window.location.href = url;
     }
@@ -48,18 +46,18 @@
       padding: 32px 24px;
       border-radius: 20px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-      max-width: 320px;
+      max-width: 330px;
       width: 100%;
     }
     .logo {
-      width: 100px;
-      height: 100px;
+      width: 96px;
+      height: 96px;
       border-radius: 20px;
       margin-bottom: 16px;
       object-fit: contain;
     }
     h2 {
-      margin: 0 0 8px 0;
+      margin: 0 0 6px 0;
       color: #1e293b;
       font-size: 22px;
       font-weight: 700;
@@ -70,23 +68,36 @@
       margin: 0 0 24px 0;
       line-height: 1.4;
     }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
     .btn {
       display: block;
       width: 100%;
-      background-color: #2563eb;
-      color: #ffffff !important;
       text-decoration: none;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
-      padding: 16px;
+      padding: 15px 16px;
       border-radius: 12px;
       border: none;
-      box-shadow: 0 4px 12px rgba(37,99,235,0.3);
       cursor: pointer;
+      text-align: center;
+      transition: background 0.15s ease, transform 0.1s ease;
     }
     .btn:active {
-      background-color: #1d4ed8;
       transform: scale(0.98);
+    }
+    .btn-primary {
+      background-color: #2563eb;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+    }
+    .btn-secondary {
+      background-color: #0f172a;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(15,23,42,0.2);
     }
   </style>
 </head>
@@ -94,18 +105,31 @@
   <div class="card">
     <img src="https://lwin991010.github.io/ops-portal/logo.png" alt="Company Logo" class="logo">
     <h2>Team Operations</h2>
-    <p>Field Submissions & Operations Portal</p>
+    <p>Select a portal to continue</p>
     
-    <!-- Real standard anchor link + javascript trigger for maximum mobile compatibility -->
-    <a 
-      class="btn" 
-      href="https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-submit-6aeafa6708bd09fa65dadae7" 
-      target="_blank" 
-      rel="noopener noreferrer"
-      onclick="openPortal();"
-    >
-      Open Portal
-    </a>
+    <div class="actions">
+      <!-- Submission Portal -->
+      <a 
+        class="btn btn-primary" 
+        href="https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-submit-6aeafa6708bd09fa65dadae7" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        onclick="openLink('https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-submit-6aeafa6708bd09fa65dadae7');"
+      >
+        📝 Field Submission Form
+      </a>
+
+      <!-- Manpower Schedule Portal -->
+      <a 
+        class="btn btn-secondary" 
+        href="https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-manpower-schedule-6aebdd7508bd09fa65dae892" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        onclick="openLink('https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-manpower-schedule-6aebdd7508bd09fa65dae892');"
+      >
+        📅 Manpower Schedule
+      </a>
+    </div>
   </div>
 </body>
 </html>

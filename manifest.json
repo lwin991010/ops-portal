@@ -1,6 +1,6 @@
 {
-  "name": "Team Operations",
-  "short_name": "Operations",
+  "name": "Construction Team Portal",
+  "short_name": "CTD Portal",
   "start_url": "https://lwin991010.github.io/ops-portal/",
   "id": "/ops-portal/",
   "scope": "https://lwin991010.github.io/ops-portal/",
@@ -9,13 +9,13 @@
   "theme_color": "#1a73e8",
   "icons": [
     {
-      "src": "https://lwin991010.github.io/ops-portal/logo.png",
+      "src": "https://lwin991010.github.io/ops-portal/logo.png?v=3",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://lwin991010.github.io/ops-portal/logo.png",
+      "src": "https://lwin991010.github.io/ops-portal/logo.png?v=3",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"

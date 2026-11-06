@@ -18,9 +18,12 @@
       });
     }
 
-    function openLink(url) {
-      window.open(url, '_blank');
-      window.location.href = url;
+    function openLink(event, url) {
+      // Prevent browser popup blocking and handle clean standalone PWA navigation
+      if (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) {
+        event.preventDefault();
+        window.location.href = url;
+      }
     }
   </script>
 
@@ -114,7 +117,7 @@
         href="https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-submit-6aeafa6708bd09fa65dadae7" 
         target="_blank" 
         rel="noopener noreferrer"
-        onclick="openLink('https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-submit-6aeafa6708bd09fa65dadae7');"
+        onclick="openLink(event, 'https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-submit-6aeafa6708bd09fa65dadae7');"
       >
         📝 Field Submission Form
       </a>
@@ -125,7 +128,7 @@
         href="https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-manpower-schedule-6aebdd7508bd09fa65dae892" 
         target="_blank" 
         rel="noopener noreferrer"
-        onclick="openLink('https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-manpower-schedule-6aebdd7508bd09fa65dae892');"
+        onclick="openLink(event, 'https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-manpower-schedule-6aebdd7508bd09fa65dae892');"
       >
         📅 Manpower Schedule
       </a>

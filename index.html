@@ -11,6 +11,16 @@
   <meta name="theme-color" content="#1a73e8">
 
   <script>
+    // Mobile URLs (<= 768px)
+    const MOBILE_WEPL_URL = "https://ctd-portal.appsmith.com/app/construction-team-portal/mobile-submit-wepl-6aeafa6708bd09fa65dadae7";
+    const MOBILE_SUPPLY_URL = "https://ctd-portal.appsmith.com/app/construction-team-portal/mobile-submit-supplylabor-6afd063b6bacc39eec6426fb";
+    const MOBILE_SCHEDULE_URL = "https://ctd-portal.appsmith.com/app/construction-team-portal/mobile-manpower-schedule-6aebdd7508bd09fa65dae892";
+
+    // Desktop URLs (> 768px)
+    const DESKTOP_WEPL_URL = "https://ctd-portal.appsmith.com/app/construction-team-portal/submission-portal-wepl-69e980e20442754ac8a2bc4f";
+    const DESKTOP_SUPPLY_URL = "https://ctd-portal.appsmith.com/app/construction-team-portal/submission-portal-supply-6afe5e3f1abc92d0f638f9bc";
+    const DESKTOP_SCHEDULE_URL = "https://ctd-portal.appsmith.com/app/construction-team-portal/manpower-schedule-update-6afeae556e0d100ad1b3e2a8";
+
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('https://lwin991010.github.io/ops-portal/sw.js')
@@ -18,13 +28,33 @@
       });
     }
 
-    function openLink(event, url) {
-      // Prevent browser popup blocking and handle clean standalone PWA navigation
+    function isDesktopScreen() {
+      return window.innerWidth > 768;
+    }
+
+    function getTargetUrl(mobileUrl, desktopUrl) {
+      return isDesktopScreen() ? desktopUrl : mobileUrl;
+    }
+
+    function openPortal(event, mobileUrl, desktopUrl) {
+      const targetUrl = getTargetUrl(mobileUrl, desktopUrl);
+
+      // Handle standalone PWA mode cleanly without popup blocking
       if (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) {
         event.preventDefault();
-        window.location.href = url;
+        window.location.href = targetUrl;
+      } else if (isDesktopScreen()) {
+        event.preventDefault();
+        window.open(targetUrl, "_blank", "noopener,noreferrer");
       }
     }
+
+    // Update href attributes on load so right-click / hover also shows the exact device URL
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById("btn-wepl").href = getTargetUrl(MOBILE_WEPL_URL, DESKTOP_WEPL_URL);
+      document.getElementById("btn-supply").href = getTargetUrl(MOBILE_SUPPLY_URL, DESKTOP_SUPPLY_URL);
+      document.getElementById("btn-schedule").href = getTargetUrl(MOBILE_SCHEDULE_URL, DESKTOP_SCHEDULE_URL);
+    });
   </script>
 
   <style>
@@ -49,7 +79,7 @@
       padding: 32px 24px;
       border-radius: 20px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-      max-width: 330px;
+      max-width: 340px;
       width: 100%;
     }
     .logo {
@@ -97,6 +127,11 @@
       color: #ffffff !important;
       box-shadow: 0 4px 12px rgba(37,99,235,0.25);
     }
+    .btn-supply {
+      background-color: #0284c7;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(2,132,199,0.25);
+    }
     .btn-secondary {
       background-color: #0f172a;
       color: #ffffff !important;
@@ -111,24 +146,38 @@
     <p>Select a portal to continue</p>
     
     <div class="actions">
-      <!-- Submission Portal -->
+      <!-- 1. WEPL Submission Portal -->
       <a 
+        id="btn-wepl"
         class="btn btn-primary" 
-        href="https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-submit-6aeafa6708bd09fa65dadae7" 
+        href="https://ctd-portal.appsmith.com/app/construction-team-portal/mobile-submit-wepl-6aeafa6708bd09fa65dadae7" 
         target="_blank" 
         rel="noopener noreferrer"
-        onclick="openLink(event, 'https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-submit-6aeafa6708bd09fa65dadae7');"
+        onclick="openPortal(event, MOBILE_WEPL_URL, DESKTOP_WEPL_URL);"
       >
-        📝 Field Submission Form
+        👷 WEPL Worker Submission
       </a>
 
-      <!-- Manpower Schedule Portal -->
+      <!-- 2. Supply Labor Submission Portal -->
       <a 
-        class="btn btn-secondary" 
-        href="https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-manpower-schedule-6aebdd7508bd09fa65dae892" 
+        id="btn-supply"
+        class="btn btn-supply" 
+        href="https://ctd-portal.appsmith.com/app/construction-team-portal/mobile-submit-supplylabor-6afd063b6bacc39eec6426fb" 
         target="_blank" 
         rel="noopener noreferrer"
-        onclick="openLink(event, 'https://ctd-portal.appsmith.com/app/team-operations-financials/mobile-manpower-schedule-6aebdd7508bd09fa65dae892');"
+        onclick="openPortal(event, MOBILE_SUPPLY_URL, DESKTOP_SUPPLY_URL);"
+      >
+        🤝 Supply Labor Submission
+      </a>
+
+      <!-- 3. Manpower Schedule Portal -->
+      <a 
+        id="btn-schedule"
+        class="btn btn-secondary" 
+        href="https://ctd-portal.appsmith.com/app/construction-team-portal/mobile-manpower-schedule-6aebdd7508bd09fa65dae892" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        onclick="openPortal(event, MOBILE_SCHEDULE_URL, DESKTOP_SCHEDULE_URL);"
       >
         📅 Manpower Schedule
       </a>
